@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.humblerookie.alphabet.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.humblerookie.alphabet.MyBundle
 
 class MyApplicationService {
 
