@@ -1,19 +1,16 @@
 <idea-plugin>
-    <id>com.github.humblerookie.alphabet</id>
-    <name>alpha-bet</name>
-    <vendor>humblerookie</vendor>
+    <id>dev.anvith.alphabet</id>
+    <name>Alpha Bet</name>
+    <vendor>Anvith Bhat</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.humblerookie.alphabet.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.humblerookie.alphabet.services.MyProjectService"/>
+        <intentionAction id="generateAlphaColor1">
+            <className>dev.anvith.alphabet.GenerateIntentionColor</className>
+            <category>XML</category>
+        </intentionAction>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.humblerookie.alphabet.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>

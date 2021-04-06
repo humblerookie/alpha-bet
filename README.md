@@ -1,40 +1,29 @@
 # alpha-bet
 
-![Build](https://github.com/humblerookie/alpha-bet/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+***
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+### Description
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+This is an android studio plugin that allows you to creates new color in hex format based on a percentage (0-100) and a
+base color you specify i.e. using it on
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+`<color name="black">#000000</color>`
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
+results in
+
+`<color name="black_87">#DE000000</color>`
+
+when you supply **87** as the percentage.
+
 <!-- Plugin description end -->
 
-## Installation
+### Usage
 
-- Using IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "alpha-bet"</kbd> >
-  <kbd>Install Plugin</kbd>
-  
-- Manually:
+1. Hop over to your colors.xml and press alt + cmd (on windows Enter).
+2. Click on `Generate alpha variant`.
+3. Key in the percentage and click OK
 
-  Download the [latest release](https://github.com/humblerookie/alpha-bet/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+### Demo
 
-
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
-
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+![Alpha Bet Gif](https://github.com/humblerookie/alpha-bet/blob/main/demo/primary.gif)
