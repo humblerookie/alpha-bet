@@ -26,4 +26,4 @@ when you supply **87** as the percentage.
 
 ### Demo
 
-![Alpha Bet Gif](https://github.com/humblerookie/alpha-bet/blob/main/demo/primary.gif)
+![Alpha Bet Gif](https://github.com/humblerookie/alpha-bet/blob/main/demo/alphabet.gif)
