@@ -1,5 +1,9 @@
 package dev.anvith.alphabet
 
+import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlComment
+import com.intellij.psi.xml.XmlTag
 import com.intellij.psi.xml.XmlText
 
 
@@ -28,4 +32,21 @@ fun XmlText.getBaseColor(): String {
     return value.trim().run {
         substring(if (length == 7) 1 else 3)
     }
+}
+
+fun XmlAttribute.getBaseName(): String {
+    val index = value?.lastIndexOf("_") ?: -1
+    return if (index > -1) {
+        value!!.substring(0, index)
+    } else {
+        value.orEmpty()
+    }
+}
+
+fun XmlTag.getAnchor(): PsiElement {
+    var next: PsiElement = this
+    while (next.nextSibling is XmlComment && next.nextSibling != null) {
+        next = next.nextSibling
+    }
+    return next
 }
