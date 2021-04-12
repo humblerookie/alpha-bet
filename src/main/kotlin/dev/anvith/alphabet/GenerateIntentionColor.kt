@@ -9,7 +9,11 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.util.parents
-import com.intellij.psi.xml.*
+import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlFile
+import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.XmlText
+import com.intellij.psi.xml.XmlToken
 import kotlin.math.roundToInt
 
 class GenerateIntentionColor : PsiElementBaseIntentionAction(), IntentionAction {
@@ -22,7 +26,6 @@ class GenerateIntentionColor : PsiElementBaseIntentionAction(), IntentionAction 
         return NAME
     }
 
-
     override fun isAvailable(project: Project, editor: Editor?, element: PsiElement): Boolean {
         return element is XmlToken && element.parents.any { it is XmlTag && it.name == COLOR_TAG && it.parentTag?.name == RES_TAG }
     }
@@ -30,21 +33,23 @@ class GenerateIntentionColor : PsiElementBaseIntentionAction(), IntentionAction 
     override fun invoke(project: Project, editor: Editor?, element: PsiElement) {
         val colorTag = element.parents.first { it is XmlTag && it.name == COLOR_TAG }
         val percentageString = Messages.showInputDialog(project, PERCENTAGE, NAME, null)
-
+        val percentages = percentageString.orEmpty().trim().split(",")
         val modifiedColorTag = colorTag.copy() as XmlTag
         val attribute = modifiedColorTag.children.first { it is XmlAttribute && it.name == NAME_ATTR } as XmlAttribute
         val colorValue = modifiedColorTag.children.first { it is XmlText && it.value.startsWith("#") } as XmlText
 
-        addAlphaVariant(project, modifiedColorTag, attribute, colorTag, colorValue, percentageString)
+        percentages.reversed().forEach {
+            addAlphaVariant(project, modifiedColorTag, attribute, colorTag, colorValue, it)
+        }
     }
 
     private fun addAlphaVariant(
-            project: Project,
-            modifiedColorTag: XmlTag,
-            attribute: XmlAttribute,
-            colorTag: PsiElement,
-            colorValue: XmlText,
-            percentageString: String?
+        project: Project,
+        modifiedColorTag: XmlTag,
+        attribute: XmlAttribute,
+        colorTag: PsiElement,
+        colorValue: XmlText,
+        percentageString: String?
     ) {
         val percentage = percentageString.asNumeric()
         if (percentage != null && (colorValue.isValidColor())) {
@@ -56,7 +61,6 @@ class GenerateIntentionColor : PsiElementBaseIntentionAction(), IntentionAction 
             val anchor = (colorTag as XmlTag).getAnchor()
             colorTag.parent.addAfter(comment.copy(), anchor)
             colorTag.parent.addAfter(modifiedColorTag, anchor)
-
         }
     }
 
@@ -71,16 +75,12 @@ class GenerateIntentionColor : PsiElementBaseIntentionAction(), IntentionAction 
         return tempFile.children.first().firstChild
     }
 
-
     companion object {
         const val NAME = "Generate alpha variant"
         const val FAMILY_NAME = "XML"
         const val COLOR_TAG = "color"
         const val RES_TAG = "resources"
         const val NAME_ATTR = "name"
-        const val PERCENTAGE = "Percentage: "
+        const val PERCENTAGE = "Percentage(multiple values are separated by comma):"
     }
 }
-
-
-
