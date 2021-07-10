@@ -6,7 +6,6 @@ import com.intellij.psi.xml.XmlComment
 import com.intellij.psi.xml.XmlTag
 import com.intellij.psi.xml.XmlText
 
-
 fun String?.asNumeric(): Int? {
     if (!isNullOrBlank()) {
         val num = toIntOrNull()
@@ -19,7 +18,6 @@ fun String?.asNumeric(): Int? {
         }
     }
     return null
-
 }
 
 fun XmlText.isValidColor(): Boolean {
