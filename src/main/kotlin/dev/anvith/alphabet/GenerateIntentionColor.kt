@@ -33,7 +33,7 @@ class GenerateIntentionColor : PsiElementBaseIntentionAction(), IntentionAction 
     override fun invoke(project: Project, editor: Editor?, element: PsiElement) {
         val colorTag = element.parents.first { it is XmlTag && it.name == COLOR_TAG }
         val percentageString = Messages.showInputDialog(project, PERCENTAGE, NAME, null)
-        val percentages = percentageString.orEmpty().trim().split(",")
+        val percentages = percentageString.orEmpty().split(",").map{it.trim()}
         val modifiedColorTag = colorTag.copy() as XmlTag
         val attribute = modifiedColorTag.children.first { it is XmlAttribute && it.name == NAME_ATTR } as XmlAttribute
         val colorValue = modifiedColorTag.children.first { it is XmlText && it.value.startsWith("#") } as XmlText
